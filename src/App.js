@@ -33,42 +33,49 @@ function App() {
   }
 
   const archiveAll = async () => {
-    calls.forEach((call) => {
-      try{
-        fetch(`${BASE_URL}/activities/${call.id}`, {
-          method: 'PATCH',
-          headers: {
-            'Content-type': 'application/json',
-          },
-          body: JSON.stringify({...call, is_archived: true})
-        })
-      }
-      catch (error) {
-        console.log(error)
-      }
-    })
-    const data = await fetchCalls()
-    setCalls(data)
+    //No endpoint for bulk archive, looping through puts too much load on the server
+    alert('No endpoint for bulk archive, looping through puts too much load on the server')
+    // calls.forEach((call) => {
+    //   try{
+    //     fetch(`${BASE_URL}/activities/${call.id}`, {
+    //       method: 'PATCH',
+    //       headers: {
+    //         'Content-type': 'application/json',
+    //       },
+    //       body: JSON.stringify({...call, is_archived: true})
+    //     })
+    //   }
+    //   catch (error) {
+    //     console.log(error)
+    //   }
+    // })
+    // const data = await fetchCalls()
+    // setCalls(data)
   }
 
   const unArchiveAll = async () => {
-    calls.forEach((call) => {
-      try{
-        fetch(`${BASE_URL}/activities/${call.id}`, {
-          method: 'PATCH',
-          headers: {
-            'Content-type': 'application/json',
-          },
-          body: JSON.stringify({...call, is_archived: false})
-        })
-      }
-      catch (error) {
-        console.log(error)
-      }
-    })
+     //No endpoint for bulk archive, looping through puts too much load on the server
+    alert('No endpoint for bulk archive, looping through puts too much load on the server')
+    
+    //No endpoint for bulk archive, looping through puts too much load on the server
+    
+    // calls.forEach((call) => {
+    //   try{
+    //     fetch(`${BASE_URL}/activities/${call.id}`, {
+    //       method: 'PATCH',
+    //       headers: {
+    //         'Content-type': 'application/json',
+    //       },
+    //       body: JSON.stringify({...call, is_archived: false})
+    //     })
+    //   }
+    //   catch (error) {
+    //     console.log(error)
+    //   }
+    // })
 
-    const data = await fetchCalls()
-    setCalls(data)
+    // const data = await fetchCalls()
+    // setCalls(data)
   }
   const archiveCall = async (call) => {
     try {
