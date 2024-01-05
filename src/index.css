@@ -1,13 +1,290 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url("https://fonts.googleapis.com/css?family=Montserrat:700|Open+Sans:400,700");
+
+:root {
+  --text-color: rgba(38, 40, 45, 1);
+  --secondary-text-color: rgba(255, 255, 255, 0.65);
+  --hidden-text-color: rgba(38, 40, 45, 0);
+  --primary-color: white;
+  --secondary-color: rgba(103, 118, 140, 1);
+  --secondary-color-hover: rgba(70, 146, 252, 1);
+  --tertiary-color: rgba(215, 219, 230, 1);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--tertiary-color);
+  font-family: "Open Sans";
+  padding: 20px;
+}
+
+.tabs {
+  max-width: 500px;
+  margin: 30px auto;
+  overflow: auto;
+  height: 780px;
+  border-radius: 5px;
+}
+
+.tabs a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.tabs h2 {
+  font-size: 30px;
+  margin-bottom: 15px;
+  text-transform: capitalize;
+  font-family: "Montserrat", sans-serif;
+}
+
+.tab {
+  padding: 14px 12px 14px 20px;
+  background-color: var(--secondary-color);
+  color: var(--secondary-text-color);
+  width: max-content;
+  float: left;
+  margin-left: -1px;
+  position: relative;
+  z-index: 0;
+  transition: top 0.5s ease 0s, border 0.5s ease 0s, color 0.5s ease 0s,
+    background-color 0.5s ease 0s, border-top-left-radius 0.5s ease 0s;
+  top: 0;
+}
+
+.tab:hover {
+  cursor: pointer;
+  top: -3px;
+  background-color: var(--secondary-color-hover);
+  color: var(--text-color);
+  z-index: 2;
+  border-top-left-radius: 5px;
+}
+
+.tab::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-right: 20px transparent solid;
+  border-bottom: 60px var(--secondary-color) solid;
+  z-index: 0;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  transition: border-bottom 0.5s ease 0s;
+}
+
+.tab:hover::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-right: 20px transparent solid;
+  border-bottom: 60px var(--secondary-color-hover) solid;
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 100%;
+}
+
+.tab:first-child {
+  margin-left: 0;
+  border-top-left-radius: 5px;
+}
+
+.tab:focus {
+  outline: none;
+}
+
+.tabs .active {
+  top: -3px;
+  color: var(--text-color);
+  z-index: 3;
+  background-color: var(--primary-color);
+  border-top-left-radius: 5px;
+}
+
+.tab.active::after {
+  border-bottom: 60px var(--primary-color) solid;
+}
+
+section {
+  margin: 15px auto;
+  width: 700px;
+}
+
+.tabs menu ul {
+  list-style: none;
+}
+
+.tabs menu + div {
+  clear: both;
+  margin-top: 15px;
+  padding: 15px 0;
+  color: white;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.6);
+  position: relative;
+}
+
+.tabs menu + div > div > hr {
+  height: 2px;
+  width: 33%;
+  opacity: 0;
+  transition: opacity 0.5s ease 0s;
+  margin-bottom: 15px;
+  background-color: var(--secondary-color);
+}
+
+.tabs menu + div > div {
+  visibility: hidden;
+  color: var(--hidden-text-color);
+  transition: color 0.5s ease 0s;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background-color: rgb(24, 26, 30);
+}
+
+.tabs menu + div > .active {
+  visibility: visible;
+  color: var(--text-color);
+  border-bottom: 1px var(--tertiary-color) solid;
+  transition: color 1s ease 0s;
+  border-radius: 0 5px 5px 5px;
+}
+
+.tabs menu + div > div.active > hr {
+  opacity: 0.5;
+}
+
+div.active h2 {
+  font-weight: lighter !important;
+}
+
+.call {
+  border-radius: 15px;
+  background-color: #fff;
+  margin: 5px;
+  margin-bottom: 14px;
+  padding: 10px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.shadow {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.d-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.color-red {
+  color: rgb(235, 106, 106) !important;
+}
+
+.color-green {
+  color: rgb(39, 221, 39);
+}
+
+.number p > span {
+  font-size: 1.3rem;
+}
+
+.number p:nth-child(1) {
+  padding-left: 0;
+}
+
+.type,
+.date,
+.time {
+  color: var(--secondary-color);
+  font-size: 0.8rem !important;
+}
+
+.date {
+  position: relative;
+  text-align: center;
+  padding: 0px 7px 0px 1px;
+}
+
+.line {
+  border-top: 1px dashed var(--secondary-color);
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  z-index: -2;
+}
+
+.text {
+  background-color: var(--primary-color);
+  padding: 0 3px;
+}
+
+.icon {
+  font-size: 1.5rem;
+}
+
+.call div:nth-child(3) {
+  font-size: 1.1rem;
+}
+
+.numberLabel {
+  border-radius: 50%;
+  font-size: 0.8rem !important;
+  padding: 1px 6px 1px 6px;
+  vertical-align: top;
+  color: white;
+  background-color: rgb(229, 67, 67);
+}
+
+.btn {
+  display: inline-block;
+  background: #fff;
+  color: var(--text-color);
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-icon {
+  padding-right: 5px;
+}
+
+.number {
+  width: 15.5rem;
+}
+
+.time {
+  text-align: right;
+}
+
+.callDetail p {
+  font-size: 1.1rem;
+  color: var(--secondary-color);
 }
