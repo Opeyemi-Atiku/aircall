@@ -5,7 +5,7 @@ import ArchivedCalls from './components/ArchivedCalls'
 import Detail from './components/Detail'
 
 function App() {
-  const [ calls, setCalls ] = useState([])
+  const [ calls, setCalls ] = useState([null])
 
   const location = useLocation()
   const BASE_URL = 'https://cerulean-marlin-wig.cyclic.app/'
@@ -23,101 +23,103 @@ function App() {
   const fetchCalls = async () => {
     let res = null
     try{
-      res = await fetch(`${BASE_URL}/activities`)
+      res = await fetch(`${BASE_URL}/activities`).catch((error) => {console.log(error)})
     }
     catch(error) {
       console.log(error)
     }
+    if(!res) return
     const data = await res.json()
     return data
   }
 
   const archiveAll = async () => {
-    //No endpoint for bulk archive, looping through puts too much load on the server
-    alert('No endpoint for bulk archive, looping through puts too much load on the server')
-    // calls.forEach((call) => {
-    //   try{
-    //     fetch(`${BASE_URL}/activities/${call.id}`, {
-    //       method: 'PATCH',
-    //       headers: {
-    //         'Content-type': 'application/json',
-    //       },
-    //       body: JSON.stringify({...call, is_archived: true})
-    //     })
-    //   }
-    //   catch (error) {
-    //     console.log(error)
-    //   }
-    // })
-    // const data = await fetchCalls()
-    // setCalls(data)
+    calls.forEach((call) => {
+      try {
+        fetch(`${BASE_URL}/activities/${call?.id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({...call, is_archived: true})
+        }).then(() => {}).catch((error) => {
+          console.log(error)
+        })
+        
+      }
+      catch(error) {
+        console.log(error)
+      }
+    })
+    setCalls(calls.map((call) => ({...call, is_archived: true})))
   }
 
   const unArchiveAll = async () => {
-     //No endpoint for bulk archive, looping through puts too much load on the server
-    alert('No endpoint for bulk archive, looping through puts too much load on the server')
-    
-    //No endpoint for bulk archive, looping through puts too much load on the server
-    
-    // calls.forEach((call) => {
-    //   try{
-    //     fetch(`${BASE_URL}/activities/${call.id}`, {
-    //       method: 'PATCH',
-    //       headers: {
-    //         'Content-type': 'application/json',
-    //       },
-    //       body: JSON.stringify({...call, is_archived: false})
-    //     })
-    //   }
-    //   catch (error) {
-    //     console.log(error)
-    //   }
-    // })
-
-    // const data = await fetchCalls()
-    // setCalls(data)
+    calls.forEach((call) => {
+      try {
+        fetch(`${BASE_URL}/activities/${call?.id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({...call, is_archived: false})
+        }).then((res) => {}).catch((error) => {
+          console.log(error)
+        })
+        
+      }
+      catch(error) {
+        console.log(error)
+      }
+    })
+    setCalls(calls.map((call) => ({...call, is_archived: false})))
   }
   const archiveCall = async (call) => {
     try {
-      fetch(`${BASE_URL}/activities/${call.id}`, {
+      fetch(`${BASE_URL}/activities/${call?.id}`, {
         method: 'PATCH',
         headers: {
           'Content-type': 'application/json',
         },
         body: JSON.stringify({...call, is_archived: true})
+      }).then(() => {
+        const callId = call?.id
+        setCalls(calls.map((call) => call?.id === callId ? {...call, is_archived: true} : call))
+      }).catch((error) => {
+        console.log(error)
       })
+      
     }
     catch(error) {
       console.log(error)
     }
-    
-
-    const data = await fetchCalls()
-    setCalls(data)
   }
 
   const unArchiveCall = async (call) => {
     try {
-      fetch(`${BASE_URL}/activities/${call.id}`, {
+      fetch(`${BASE_URL}/activities/${call?.id}`, {
         method: 'PATCH',
         headers: {
           'Content-type': 'application/json',
         },
         body: JSON.stringify({...call, is_archived: false})
       })
+      .then(() => {
+        const callId = call?.id
+        setCalls(calls.map((call) => call?.id === callId ? {...call, is_archived: false} : call))
+      }).catch((error) => {
+        console.log(error)
+      })
     }
     catch(error) {
       console.log(error)
     }
-
-    const data = await fetchCalls()
-    setCalls(data)
   }
 
   const countArchive = () => {
     let count = 0
     calls.forEach((call) => {
-      if(call.is_archived === true && call.from) count++
+      if(call?.is_archived === true && call?.from) count++
     })
     return count
   }
@@ -125,7 +127,7 @@ function App() {
   const allCallsCount = () => {
     let count = 0
     calls.forEach((call) => {
-      if(call.from && call.is_archived === false) count++
+      if(call?.from && call?.is_archived === false) count++
     })
     return count
   }
@@ -162,7 +164,6 @@ function App() {
 }
 
 export default App;
-
 
 
 

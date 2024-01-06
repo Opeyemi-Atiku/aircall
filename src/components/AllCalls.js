@@ -5,7 +5,7 @@ const AllCalls = ({ calls, archiveAll, onArchive }) => {
     const countCall = (from) => {
         let count = 0
         calls.forEach(call => {
-            if(call.from === from) count++    
+            if(call?.from === from) count++    
         });
 
         return count
@@ -19,7 +19,7 @@ const AllCalls = ({ calls, archiveAll, onArchive }) => {
                     <button onClick={archiveAll} className='btn shadow'><FontAwesomeIcon className='btn-icon' icon={faBoxArchive} /> Archive all calls</button>
                 </div>
                 <hr/>
-                {calls.map((call, index) => (call.from && call.is_archived === false ? <Call countCall={countCall} onArchive={onArchive} key={call.id} call={call} /> : ''))}
+                {calls.map((call, index) => (call?.from && call?.is_archived === false ? <Call countCall={countCall} onArchive={onArchive} key={call?.id} call={call} /> : ''))}
             </div>
         </div>
     )

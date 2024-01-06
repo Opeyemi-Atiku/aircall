@@ -1,4 +1,4 @@
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 const Detail = () => {
     const { id } = useParams()
@@ -31,12 +31,12 @@ const Detail = () => {
                 </div>
                 <hr/>
                 <div className='callDetail shadow' style={{padding: '20px'}}>
-                    <p>From: { call.from }</p>
-                    <p>Via: {call.via}</p>
-                    <p>Duration: {call.duration}</p>
-                    <p>Type: {call.call_type}</p>
-                    <p>Direction: {call.direction}</p>
-                    <p>To: {call.to}</p>
+                    <p>From: { call?.from }</p>
+                    <p>Via: {call?.via}</p>
+                    <p>Duration: {call?.duration}</p>
+                    <p>Type: {call?.call_type}</p>
+                    <p>Direction: {call?.direction}</p>
+                    <p>To: {call?.to}</p>
                 </div>
             </div>
         </div>
