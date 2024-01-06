@@ -51,6 +51,9 @@ function App() {
         console.log(error)
       }
     })
+
+    //API returns not found for some calls, even though it has been updated on the backend.
+    //I implemented uploading the state without confirming from the api, because of the above error
     setCalls(calls.map((call) => ({...call, is_archived: true})))
   }
 
@@ -72,6 +75,8 @@ function App() {
         console.log(error)
       }
     })
+    //API returns not found for some calls, even though it has been updated on the backend.
+    //I implemented uploading the state without confirming from the api, because of the above error
     setCalls(calls.map((call) => ({...call, is_archived: false})))
   }
   const archiveCall = async (call) => {
