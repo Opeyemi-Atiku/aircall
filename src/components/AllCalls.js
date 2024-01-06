@@ -4,7 +4,7 @@ import Call from './Call'
 const AllCalls = ({ calls, archiveAll, onArchive, callsCount }) => {
     const countCall = (from) => {
         let count = 0
-        calls.forEach(call => {
+        calls?.forEach(call => {
             if(call?.from === from) count++    
         });
 
@@ -20,7 +20,7 @@ const AllCalls = ({ calls, archiveAll, onArchive, callsCount }) => {
                 </div>
                 <hr/>
                 {callsCount < 1 ? <p className='no-calls'>No calls available</p> : ''}
-                {calls.map((call, index) => (call?.from && call?.is_archived === false ? <Call countCall={countCall} onArchive={onArchive} key={call?.id} call={call} /> : ''))}
+                {calls?.map((call, index) => (call?.from && call?.is_archived === false ? <Call countCall={countCall} onArchive={onArchive} key={call?.id} call={call} /> : ''))}
             </div>
         </div>
     )

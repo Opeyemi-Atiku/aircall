@@ -24,6 +24,10 @@ function App() {
     let res = null
     try{
       res = await fetch(`${BASE_URL}/activities`).catch((error) => {console.log(error)})
+      if (!res.ok) {
+        //catches any error, so app will not break.
+        throw new Error('Network response was not ok.');
+      }
     }
     catch(error) {
       console.log(error)
@@ -34,7 +38,7 @@ function App() {
   }
 
   const archiveAll = async () => {
-    calls.forEach((call) => {
+    calls?.forEach((call) => {
       try {
         fetch(`${BASE_URL}/activities/${call?.id}`, {
           method: 'PATCH',
@@ -54,11 +58,11 @@ function App() {
 
     //API returns not found for some calls, even though it has been updated on the backend.
     //I implemented uploading the state without confirming from the api, because of the above error
-    setCalls(calls.map((call) => ({...call, is_archived: true})))
+    setCalls(calls?.map((call) => ({...call, is_archived: true})))
   }
 
   const unArchiveAll = async () => {
-    calls.forEach((call) => {
+    calls?.forEach((call) => {
       try {
         fetch(`${BASE_URL}/activities/${call?.id}`, {
           method: 'PATCH',
@@ -77,7 +81,7 @@ function App() {
     })
     //API returns not found for some calls, even though it has been updated on the backend.
     //I implemented uploading the state without confirming from the api, because of the above error
-    setCalls(calls.map((call) => ({...call, is_archived: false})))
+    setCalls(calls?.map((call) => ({...call, is_archived: false})))
   }
   const archiveCall = async (call) => {
     try {
@@ -89,7 +93,7 @@ function App() {
         body: JSON.stringify({...call, is_archived: true})
       }).then(() => {
         const callId = call?.id
-        setCalls(calls.map((call) => call?.id === callId ? {...call, is_archived: true} : call))
+        setCalls(calls?.map((call) => call?.id === callId ? {...call, is_archived: true} : call))
       }).catch((error) => {
         console.log(error)
       })
@@ -111,7 +115,7 @@ function App() {
       })
       .then(() => {
         const callId = call?.id
-        setCalls(calls.map((call) => call?.id === callId ? {...call, is_archived: false} : call))
+        setCalls(calls?.map((call) => call?.id === callId ? {...call, is_archived: false} : call))
       }).catch((error) => {
         console.log(error)
       })
@@ -123,7 +127,7 @@ function App() {
 
   const countArchive = () => {
     let count = 0
-    calls.forEach((call) => {
+    calls?.forEach((call) => {
       if(call?.is_archived === true && call?.from) count++
     })
     return count
@@ -131,7 +135,7 @@ function App() {
 
   const allCallsCount = () => {
     let count = 0
-    calls.forEach((call) => {
+    calls?.forEach((call) => {
       if(call?.from && call?.is_archived === false) count++
     })
     return count
