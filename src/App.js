@@ -160,8 +160,8 @@ function App() {
           </ul>
         </menu>
         <Routes>
-          <Route path='/' element={<AllCalls archiveAll={archiveAll} onArchive={archiveCall} calls={calls}/>} />
-          <Route path='/archived-calls' element={<ArchivedCalls unArchiveAll={unArchiveAll} onUnArchive={unArchiveCall} calls={calls}/>} />
+          <Route path='/' element={<AllCalls callsCount={allCallsCount()} archiveAll={archiveAll} onArchive={archiveCall} calls={calls}/>} />
+          <Route path='/archived-calls' element={<ArchivedCalls archivedCallsCount={countArchive()} unArchiveAll={unArchiveAll} onUnArchive={unArchiveCall} calls={calls}/>} />
           <Route path='/call/:id' element={<Detail />} />
         </Routes>
       </section>

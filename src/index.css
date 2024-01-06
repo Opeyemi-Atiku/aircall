@@ -288,3 +288,8 @@ div.active h2 {
   font-size: 1.1rem;
   color: var(--secondary-color);
 }
+
+.no-calls {
+  color: var(--secondary-color);
+  text-align: center;
+}
